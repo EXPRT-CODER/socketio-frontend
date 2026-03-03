@@ -20,7 +20,7 @@ const Home = () => {
         navigate("/login");
         return;
     }
-    const socket = io("http://localhost:5000", {
+    const socket = io("https://socketio-backend-inp8.onrender.com", {
       auth: {
         username,
       },

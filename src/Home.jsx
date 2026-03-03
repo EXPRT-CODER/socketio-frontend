@@ -53,7 +53,7 @@ const Home = () => {
       <h2>{onUsers}</h2>
       {loading ? <p>Server is waking up... wait an minute</p> : 
       <>
-        <h3>User Names:</h3>
+        <h3>Their Names:</h3>
         <ul style={{ listStyleType: "none", padding: 0 }}>
           {userNames.map((name, index) => (
             <li key={index} style={{ fontSize: "20px" }}>

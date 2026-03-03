@@ -7,7 +7,7 @@ import { useLocation ,useNavigate } from 'react-router-dom';
 const Home = () => {
   const [onUsers, setOnUsers] = useState(0);
   const [userNames, setUserNames] = useState([]);
-  // const socketRef = useRef(null);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   const location = useLocation();
@@ -20,10 +20,19 @@ const Home = () => {
         navigate("/login");
         return;
     }
+
     const socket = io("http://localhost:5000", {
       auth: {
         username,
       },
+    });
+
+    socket.on("connect", () => {
+      setLoading(false);
+    });
+
+    socket.on("disconnect", () => {
+      setLoading(true);
     });
 
     socket.on("usersUpdate", (data) => {
@@ -42,16 +51,19 @@ const Home = () => {
     <div style={{ textAlign: "center", marginTop: "100px" }}>
       <h1>🟢 Users Online</h1>
       <h2>{onUsers}</h2>
-      <h3>User Names:</h3>
-      <ul style={{ listStyleType: "none", padding: 0 }}>
-        {userNames.map((name, index) => (
-          <li key={index} style={{ fontSize: "20px" }}>
-            {name}
-          </li>
-        ))}
-      </ul>
+      {loading ? <p>Server is waking up... wait an minute</p> : 
+      <>
+        <h3>User Names:</h3>
+        <ul style={{ listStyleType: "none", padding: 0 }}>
+          {userNames.map((name, index) => (
+            <li key={index} style={{ fontSize: "20px" }}>
+              {name}
+            </li>
+          ))}
+        </ul>
+      </>
+      }
     </div>
   );
-}
-
+};
 export default Home;

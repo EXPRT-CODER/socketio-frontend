@@ -51,7 +51,7 @@ const Home = () => {
     <div style={{ textAlign: "center", marginTop: "100px" }}>
       <h1>🟢 Users Online</h1>
       <h2>{onUsers}</h2>
-      {loading ? <p>Server is waking up... wait an minute</p> : 
+      {loading ? <p>Server is waking up... wait a minute</p> : 
       <>
         <h3>Their Names:</h3>
         <ul style={{ listStyleType: "none", padding: 0 }}>
